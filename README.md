@@ -1,8 +1,6 @@
 # xo game flutter X Getx state managment
 
 ## Environment
-
-### Doctor summary :
 - **Flutter**: Channel stable, 3.22.2, on macOS 14.6.1 23G93 darwin-arm64, locale en-TH
 - **Android toolchain**: Develop for Android devices (Android SDK version 35.0.0)
 - **Xcode**: Develop for iOS and macOS (Xcode 16.1)
