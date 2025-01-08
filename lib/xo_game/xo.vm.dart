@@ -3,27 +3,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xo_game/const/const.dart';
+import 'package:xo_game/game_logic/check_winner.dart';
+import 'package:xo_game/game_logic/game_logic.dart';
 import 'package:xo_game/model/game_history.dart';
 import 'package:xo_game/model/shared_preferences.dart';
-import 'package:xo_game/xo_game/game_logic/check_winner.dart';
-
-import 'game_logic/game_logic.dart';
 
 class XOGameVM extends GetxController {
-  final int tableNumber = Get.arguments['table'] as int;
-  final int gameMode = Get.arguments['game_mode'] as int;
-  RxList<List<String>> board = <List<String>>[].obs;
+  final int _tableNumber = Get.arguments['table'] as int;
+  final int _gameMode = Get.arguments['game_mode'] as int;
+  final RxList<List<String>> board = <List<String>>[].obs;
+  final RxString _currentPlayer = 'X'.obs;
+  final RxString winner = ''.obs;
 
   List<GameHistory> _historyGame = [];
-  RxString currentPlayer = 'X'.obs;
-  RxString winner = ''.obs;
 
   final GamePreferences _gamePreferences = GamePreferences();
 
   initBoard() {
     _initHistory();
     board.value = List.generate(
-        tableNumber, (_) => List.generate(tableNumber, (_) => ''));
+        _tableNumber, (_) => List.generate(_tableNumber, (_) => ''));
   }
 
   _initHistory() async {
@@ -36,14 +35,14 @@ class XOGameVM extends GetxController {
   }
 
   togglePlayer() {
-    currentPlayer.value = currentPlayer.value == 'X' ? 'O' : 'X';
+    _currentPlayer.value = _currentPlayer.value == 'X' ? 'O' : 'X';
   }
 
   _updateWinner(String winnerValue) {
     _showDialogGameOver(winnerValue);
     winner.value = winnerValue;
     GameHistory history = GameHistory.mapGameHistory(
-        winnerValue, board, gameMode == GameMode.AIMode);
+        winnerValue, board, _gameMode == GameMode.AIMode);
     _historyGame.add(history);
 
     _gamePreferences.setGameHistory(jsonEncode(
@@ -51,9 +50,10 @@ class XOGameVM extends GetxController {
   }
 
   resetGame() {
-    board.value = List.generate(3, (_) => List.generate(3, (_) => ''));
+    board.value = List.generate(
+        _tableNumber, (_) => List.generate(_tableNumber, (_) => ''));
     winner.value = '';
-    currentPlayer.value = 'X';
+    _currentPlayer.value = 'X';
   }
 
   makeAIMove() {
@@ -61,11 +61,11 @@ class XOGameVM extends GetxController {
     int bestMoveRow = -1;
     int bestMoveCol = -1;
 
-    for (int i = 0; i < tableNumber; i++) {
-      for (int j = 0; j < tableNumber; j++) {
+    for (int i = 0; i < _tableNumber; i++) {
+      for (int j = 0; j < _tableNumber; j++) {
         if (board[i][j].isEmpty) {
           board[i][j] = 'O';
-          int score = minimax(board, false, tableNumber: tableNumber);
+          int score = minimax(board, false, tableNumber: _tableNumber);
           board[i][j] = '';
 
           if (score > bestScore) {
@@ -82,7 +82,7 @@ class XOGameVM extends GetxController {
       if (checkWinner(
         board,
         'O',
-        tableNumber: tableNumber,
+        tableNumber: _tableNumber,
       )) {
         _updateWinner('O');
       } else if (checkDraw(board)) {
@@ -95,23 +95,21 @@ class XOGameVM extends GetxController {
 
   void onTapCell(int row, int col) {
     if (board[row][col].isEmpty && winner.value.isEmpty) {
-      _updateBoard(row, col, currentPlayer.value);
+      _updateBoard(row, col, _currentPlayer.value);
 
       if (checkWinner(
         board,
-        currentPlayer.value,
-        tableNumber: tableNumber,
+        _currentPlayer.value,
+        tableNumber: _tableNumber,
       )) {
-        _updateWinner(currentPlayer.value);
+        _updateWinner(_currentPlayer.value);
       } else if (checkDraw(board)) {
         _updateWinner(ResultGame.draw);
       } else {
         togglePlayer();
-        if (gameMode == GameMode.AIMode && currentPlayer.value == 'O') {
-          // isAIPlaying.value = true;
+        if (_gameMode == GameMode.AIMode && _currentPlayer.value == 'O') {
           Future.delayed(const Duration(milliseconds: 500), () {
             makeAIMove();
-            // isAIPlaying.value = false;
           });
         }
       }
