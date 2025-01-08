@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xo_game/_widget/history_page.dart';
 import 'package:xo_game/const/const.dart';
+import 'package:xo_game/history_game/history_game.binding.dart';
+import 'package:xo_game/history_game/history_game.view.dart';
 import 'package:xo_game/xo_game/xo.binding.dart';
 import 'package:xo_game/xo_game/xo.view.dart';
 
@@ -28,7 +29,10 @@ class SelectTablePage extends StatelessWidget {
   Widget _historyLogButton() {
     return OutlinedButton(
       onPressed: () {
-        Get.to(() => HistoryPage());
+        Get.to(
+          () => HistoryGameView(),
+          binding: HistoryGameBinding(),
+        );
       },
       child: Text('history log'),
     );

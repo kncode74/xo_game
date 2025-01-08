@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:uuid/uuid.dart';
 import 'package:xo_game/const/const.dart';
 import 'package:xo_game/model/game_history.dart';
 import 'package:xo_game/model/shared_preferences.dart';
@@ -17,9 +17,6 @@ class XOGameVM extends GetxController {
   List<GameHistory> _historyGame = [];
   RxString currentPlayer = 'X'.obs;
   RxString winner = ''.obs;
-  var playerXScore = 0.obs;
-  var playerOScore = 0.obs;
-  var isAIPlaying = false.obs;
 
   final GamePreferences _gamePreferences = GamePreferences();
 
@@ -43,9 +40,12 @@ class XOGameVM extends GetxController {
   }
 
   _updateWinner(String winnerValue) {
+    _showDialogGameOver(winnerValue);
     winner.value = winnerValue;
-    GameHistory history = GameHistory.mapGameHistory(winnerValue, board);
+    GameHistory history = GameHistory.mapGameHistory(
+        winnerValue, board, gameMode == GameMode.AIMode);
     _historyGame.add(history);
+
     _gamePreferences.setGameHistory(jsonEncode(
         _historyGame.map((item) => GameHistory.toMap(item)).toList()));
   }
@@ -85,7 +85,6 @@ class XOGameVM extends GetxController {
         tableNumber: tableNumber,
       )) {
         _updateWinner('O');
-        playerOScore++;
       } else if (checkDraw(board)) {
         _updateWinner('draw');
       } else {
@@ -94,9 +93,7 @@ class XOGameVM extends GetxController {
     }
   }
 
-  void onCellTap(int row, int col) {
-    if (isAIPlaying.value) return;
-
+  void onTapCell(int row, int col) {
     if (board[row][col].isEmpty && winner.value.isEmpty) {
       _updateBoard(row, col, currentPlayer.value);
 
@@ -106,25 +103,47 @@ class XOGameVM extends GetxController {
         tableNumber: tableNumber,
       )) {
         _updateWinner(currentPlayer.value);
-        if (currentPlayer.value == 'X') {
-          playerXScore++;
-        } else {
-          playerOScore++;
-        }
-        // Show a dialog here if needed
       } else if (checkDraw(board)) {
         _updateWinner(ResultGame.draw);
-        // Show a draw dialog here if needed
       } else {
         togglePlayer();
         if (gameMode == GameMode.AIMode && currentPlayer.value == 'O') {
-          isAIPlaying.value = true;
+          // isAIPlaying.value = true;
           Future.delayed(const Duration(milliseconds: 500), () {
             makeAIMove();
-            isAIPlaying.value = false;
+            // isAIPlaying.value = false;
           });
         }
       }
     }
+  }
+
+  _showDialogGameOver(String winnerName) {
+    return showDialog<void>(
+      context: Get.context!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Game over'),
+          content: Text('The winner is $winnerName'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('back'),
+              onPressed: () {
+                Get.back();
+                Get.back();
+              },
+            ),
+            TextButton(
+              child: const Text('continue'),
+              onPressed: () {
+                Get.back();
+                resetGame();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

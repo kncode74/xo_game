@@ -17,8 +17,12 @@ class GamePreferences {
   }
 
   Future<void> setGameHistory(String json) async {
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(history, json);
+  }
+
+  Future<void> clearPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 }
