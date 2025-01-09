@@ -8,7 +8,7 @@ class HistoryGameVM extends GetxController {
   RxList<GameHistory> historyGameList = <GameHistory>[].obs;
 
   init() async {
-    historyGameList.value = await _gamePreferences.getGameHistory();
+    historyGameList.value = await _gamePreferences.getGameHistoryList();
     historyGameList.value = historyGameList.reversed.toList();
   }
 

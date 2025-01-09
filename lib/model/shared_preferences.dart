@@ -6,12 +6,11 @@ import 'package:xo_game/model/game_history.dart';
 class GamePreferences {
   final String history = 'history';
 
-  Future<List<GameHistory>> getGameHistory() async {
+  Future<List<GameHistory>> getGameHistoryList() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String? result = prefs.getString('history');
     if (result == null) return [];
-
     List<dynamic> historyList = jsonDecode(result);
     return historyList.map((item) => GameHistory.fromMap(item)).toList();
   }

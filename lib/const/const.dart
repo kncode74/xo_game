@@ -4,17 +4,18 @@ class TableNumber {
 }
 
 class ResultGame {
-  static const win = 'win';
-  static const lose = 'lose';
-  static const draw = 'draw';
+  static const drawStr = 'draw';
+  static const win = 1;
+  static const lost = -1;
+  static const draw = 0;
 }
 
-class Result {
-  static const x = 'X';
-  static const o = 'O';
+enum GameMode {
+  singleMode,
+  aIMode,
 }
 
-class GameMode {
-  static const singleMode = 0;
-  static const AIMode = 1;
+class Player {
+  static const O_AI = 'O';
+  static const X_USER = 'X';
 }

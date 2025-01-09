@@ -59,7 +59,7 @@ class SelectTablePage extends StatelessWidget {
 
   _routeToGame(
     int tableNumber,
-    int gameMode,
+    Enum gameMode,
   ) {
     Get.to(
       () => XOGameView(),
@@ -83,7 +83,7 @@ class SelectTablePage extends StatelessWidget {
               title: const Text('Play with AI'),
               onTap: () {
                 Get.back();
-                _routeToGame(tableNumber, GameMode.AIMode);
+                _routeToGame(tableNumber, GameMode.aIMode);
               },
             ),
             ListTile(

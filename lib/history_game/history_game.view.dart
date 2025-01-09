@@ -76,25 +76,25 @@ class HistoryGameView extends GetView<HistoryGameVM> {
               ),
             ),
             const Divider(),
-            _summaryRow('Total Games', '${controller.historyGameList.length}'),
+            _rowContent('Total Games', '${controller.historyGameList.length}'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _summaryRow('Player X Wins : ',
-                    '${controller.historyGameList.where((item) => item.winner == Result.x).length}'),
-                _summaryRow('Player O Wins : ',
-                    '${controller.historyGameList.where((item) => item.winner == Result.o).length}'),
+                _rowContent('Player X Wins : ',
+                    '${controller.historyGameList.where((item) => item.winner == Player.X_USER).length}'),
+                _rowContent('Player O Wins : ',
+                    '${controller.historyGameList.where((item) => item.winner == Player.O_AI).length}'),
               ],
             ),
-            _summaryRow('Draws',
-                '${controller.historyGameList.where((item) => item.winner == 'draw').length}'),
+            _rowContent('Draws',
+                '${controller.historyGameList.where((item) => item.winner == ResultGame.drawStr).length}'),
           ],
         ),
       ),
     );
   }
 
-  Widget _summaryRow(String label, String value) {
+  Widget _rowContent(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
