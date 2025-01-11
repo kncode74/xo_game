@@ -42,7 +42,7 @@ class HistoryGameView extends GetView<HistoryGameVM> {
               child: ListView.builder(
                 itemCount: controller.historyGameList.length,
                 itemBuilder: (context, index) {
-                  GameHistory history = controller.historyGameList[index];
+                  GameHistoryModel history = controller.historyGameList[index];
                   return _gameHistoryContent(history);
                 },
               ),
@@ -120,7 +120,7 @@ class HistoryGameView extends GetView<HistoryGameVM> {
     );
   }
 
-  Widget _gameHistoryContent(GameHistory history) {
+  Widget _gameHistoryContent(GameHistoryModel history) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(12.0),

@@ -15,7 +15,7 @@ class XOGameVM extends GetxController {
   final RxString _currentPlayer = Player.X_USER.obs;
   final RxString winnerName = ''.obs;
 
-  List<GameHistory> _historyGame = [];
+  List<GameHistoryModel> _historyGame = [];
 
   final GamePreferences _gamePreferences = GamePreferences();
 
@@ -43,7 +43,7 @@ class XOGameVM extends GetxController {
     _showDialogGameOver(winnerValue);
     winnerName.value = winnerValue;
 
-    GameHistory history = GameHistory.mapGameHistory(
+    GameHistoryModel history = GameHistoryModel.mapGameHistory(
       winnerValue,
       board,
       _gameMode == GameMode.aIMode,
@@ -51,7 +51,7 @@ class XOGameVM extends GetxController {
     _historyGame.add(history);
 
     _gamePreferences.setGameHistory(jsonEncode(
-        _historyGame.map((item) => GameHistory.toMap(item)).toList()));
+        _historyGame.map((item) => GameHistoryModel.toMap(item)).toList()));
   }
 
   resetGame() {
@@ -132,22 +132,80 @@ class XOGameVM extends GetxController {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Game over'),
-          content: Text('The winner is $winnerName'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('back'),
-              onPressed: () {
-                Get.back();
-                Get.back();
-              },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Center(
+            child: Text(
+              'Game Over',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            TextButton(
-              child: const Text('continue'),
-              onPressed: () {
-                Get.back();
-                resetGame();
-              },
+          ),
+          content: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow.shade700,
+                  size: 40,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'The winner is $winnerName',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Back',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    Get.back();
+                    Get.back();
+                  },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.greenAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Continue',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    Get.back();
+                    resetGame();
+                  },
+                ),
+              ],
             ),
           ],
         );

@@ -5,7 +5,7 @@ import 'package:xo_game/model/shared_preferences.dart';
 class HistoryGameVM extends GetxController {
   final GamePreferences _gamePreferences = GamePreferences();
 
-  RxList<GameHistory> historyGameList = <GameHistory>[].obs;
+  RxList<GameHistoryModel> historyGameList = <GameHistoryModel>[].obs;
 
   init() async {
     historyGameList.value = await _gamePreferences.getGameHistoryList();
