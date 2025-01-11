@@ -13,7 +13,7 @@ class XOGameView extends GetView<XOGameVM> {
     controller.initBoard();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('XO XO'),
+        title: Text('XO $tableNumber X $tableNumber'),
       ),
       body: Center(
         child: Column(
@@ -32,7 +32,7 @@ class XOGameView extends GetView<XOGameVM> {
         return BoardXOContent(
           boardData: controller.board.toList(),
           tableNumber: tableNumber,
-          onTap: (int row, int col) {
+          onTapCell: (int row, int col) {
             controller.onTapCell(row, col);
           },
         );

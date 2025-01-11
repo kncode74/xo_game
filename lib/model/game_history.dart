@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:uuid/uuid.dart';
 
-class GameHistory {
+class GameHistoryModel {
   final String gameId;
   final DateTime playTime;
   final String winner;
   final bool isAI;
   final List<List<String>> board;
 
-  GameHistory({
+  GameHistoryModel({
     required this.gameId,
     required this.playTime,
     required this.winner,
@@ -17,13 +17,13 @@ class GameHistory {
     required this.isAI,
   });
 
-  static GameHistory mapGameHistory(
+  static GameHistoryModel mapGameHistory(
     String resultGame,
     List<List<String>> board,
     bool isAI,
   ) {
     var uuid = const Uuid();
-    GameHistory history = GameHistory(
+    GameHistoryModel history = GameHistoryModel(
       gameId: uuid.toString(),
       playTime: DateTime.now(),
       winner: resultGame,
@@ -33,7 +33,7 @@ class GameHistory {
     return history;
   }
 
-  static Map<String, dynamic> toMap(GameHistory history) {
+  static Map<String, dynamic> toMap(GameHistoryModel history) {
     return {
       'gameId': history.gameId,
       'playTime': history.playTime.toIso8601String(),
@@ -43,8 +43,8 @@ class GameHistory {
     };
   }
 
-  static GameHistory fromMap(Map<String, dynamic> map) {
-    return GameHistory(
+  static GameHistoryModel fromMap(Map<String, dynamic> map) {
+    return GameHistoryModel(
       gameId: map['gameId'],
       playTime: DateTime.parse(map['playTime']),
       winner: map['winner'],
