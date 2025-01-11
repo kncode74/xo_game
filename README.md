@@ -1,4 +1,4 @@
-![Simulator Screenshot - iPhone 15 - 2025-01-11 at 22 11 52](https://github.com/user-attachments/assets/b35e6e04-98cf-465d-ab79-7f19ffab661d)# XO game flutter X Getx 
+# XO game flutter X Getx 
 XO Game (Tic-Tac-Toe)
 เกม XO (หรือ Tic-Tac-Toe) ที่สามารถเล่นได้ได้คนเดียว หรือกับ AI (Player vs AI) โดยใช้เทคนิค Minimax Algorithm 
 
