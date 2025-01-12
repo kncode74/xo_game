@@ -59,4 +59,5 @@ XO Game (Tic-Tac-Toe)
    <img src="https://github.com/user-attachments/assets/f9876d74-bb0a-4dd3-93c0-2b4c71a2f025" alt="Screenshot 2" width="25%" style="margin-right: 10px;">
      <img src="https://github.com/user-attachments/assets/3f8cbe59-e81d-435e-9c81-ffae09332385" alt="Screenshot 2" width="25%" style="margin-right: 10px;">
   <img src="https://github.com/user-attachments/assets/270110f6-082c-49b7-875e-96c760877827" alt="Screenshot 3" width="25%">
+    <img src="https://github.com/user-attachments/assets/31a86597-6b2a-4b44-836d-e4f75ba78acd" alt="Screenshot 3" width="25%">
 </p>
