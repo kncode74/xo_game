@@ -52,8 +52,11 @@ XO Game (Tic-Tac-Toe)
 - **Chrome**: Develop for the web
 - **Android Studio**: Version 2023.3
 
+
+
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/3f8cbe59-e81d-435e-9c81-ffae09332385" alt="Screenshot 2" width="30%" style="margin-right: 10px;">
-   <img src="https://github.com/user-attachments/assets/07066557-1eeb-4128-814b-47516fd90d92" alt="Screenshot 2" width="30%" style="margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/270110f6-082c-49b7-875e-96c760877827" alt="Screenshot 3" width="30%">
+   <img src="https://github.com/user-attachments/assets/b27cd2d8-70b3-4857-9537-ae3019b70d48" alt="Screenshot 2" width="25%" style="margin-right: 10px;">
+   <img src="https://github.com/user-attachments/assets/f9876d74-bb0a-4dd3-93c0-2b4c71a2f025" alt="Screenshot 2" width="25%" style="margin-right: 10px;">
+     <img src="https://github.com/user-attachments/assets/3f8cbe59-e81d-435e-9c81-ffae09332385" alt="Screenshot 2" width="25%" style="margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/270110f6-082c-49b7-875e-96c760877827" alt="Screenshot 3" width="25%">
 </p>
