@@ -1,6 +1,5 @@
 # XO game flutter X Getx 
-XO Game (Tic-Tac-Toe)
-เกม XO (หรือ Tic-Tac-Toe) ที่สามารถเล่นได้ได้คนเดียว หรือกับ AI (Player vs AI) โดยใช้เทคนิค Minimax Algorithm 
+เกม XO (หรือ Tic-Tac-Toe) ที่สามารถเล่นได้ คนเดียว หรือกับ AI (Player vs AI) โดยใช้เทคนิค Minimax Algorithm 
 
 ## วิธีการ Setup และ Run โปรแกรม
 1. Clone Repository
