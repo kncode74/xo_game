@@ -29,6 +29,7 @@ class GameLogic {
 
   static bool checkDraw(List<List<String>> board) =>
       board.every((row) => row.every((cell) => cell.isNotEmpty));
+  static final Map<String, int> _memo = {};
 
   static int minimaxAlgorithm(
     List<List<String>> board, {
@@ -37,7 +38,8 @@ class GameLogic {
   }) {
     bool checkAIWin = GameLogic.checkWinner(board, Player.O_AI, tableNumber);
     bool checkAILost = GameLogic.checkWinner(board, Player.X_USER, tableNumber);
-
+    final key = _boardToKey(board, isMaximizing);
+    if (_memo.containsKey(key)) return _memo[key]!;
     if (checkAIWin) return ResultGame.win;
     if (checkAILost) return ResultGame.lost;
     if (GameLogic.checkDraw(board)) return ResultGame.draw;
@@ -65,7 +67,12 @@ class GameLogic {
         }
       }
     }
-
+    _memo[key] = bestScore;
     return bestScore;
+  }
+
+  static String _boardToKey(List<List<String>> board, bool isMaximizing) {
+    final flat = board.expand((row) => row).join();
+    return '$flat|${isMaximizing ? '1' : '0'}';
   }
 }
